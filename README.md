@@ -1,1 +1,2 @@
--A simple tracker for Splinterlands
+# SplinterlandsTracker
+A simple tracker for Splinterlands
