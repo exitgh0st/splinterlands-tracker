@@ -12,4 +12,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  donateButtonClicked() {
+    console.log("donate button clicked");
+  }
+
+  settingsButtonClicked() {
+    console.log("settings button clicked");
+  }
 }
