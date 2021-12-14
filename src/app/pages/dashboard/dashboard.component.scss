@@ -2,5 +2,24 @@
   background-color: #14192f;
   width: 100vw;
   height: 100vh;
+  display: flex;
+}
+
+
+.grid-container {
+  height: 60vh;
+  width: 100%;
+  // background-color: blue;
   margin-top: calc(var(--navbar-height) + 40px);
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.grid-col {
+  width: 20vw;
+  height: 170px;
+  margin: 8px;
+  background-color: #232a46;
 }
