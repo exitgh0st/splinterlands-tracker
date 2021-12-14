@@ -2,7 +2,7 @@
   overflow: hidden;
   background-color: #14192f;
   border: #232a46 solid 1px;
-  height: 60px;
+  height: var(--navbar-height);
   width: 100%;
   position: fixed;
   display: flex;
