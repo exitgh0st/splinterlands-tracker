@@ -1,0 +1,16 @@
+<div class="grid-col">
+  <p class="grid-col-text grid-col-title">{{ title }}</p>
+
+
+  <div *ngIf="!mainBodyText" class="dot-pulse-div" data-title=".dot-pulse" >
+    <div class="dot-pulse-stage">
+      <div class="dot-pulse"> </div>
+    </div>
+  </div>
+
+  <div *ngIf="mainBodyText">
+    <p class="grid-col-text grid-col-main-body" [ngClass]="{'grid-col-main-body-solo': !subBodyText}" >{{ mainBodyText }}</p>
+    <p class="grid-col-text grid-col-sub-body">{{ subBodyText }}</p>
+  </div>
+
+</div>

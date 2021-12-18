@@ -6,17 +6,21 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { GridColumnComponent } from './components/grid-column/grid-column.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     ModalComponent,
-    NavbarComponent
+    NavbarComponent,
+    GridColumnComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
