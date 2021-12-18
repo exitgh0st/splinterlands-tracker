@@ -1,39 +1,57 @@
+
+
 <div class="container">
 
+  <spl-navbar class="" (pressedDonateButton)="donateButtonClicked()" (pressedSettingsBUtton)="settingsButtonClicked()">
+  </spl-navbar>
 
-  <spl-navbar (pressedDonateButton)="donateButtonClicked()" (pressedSettingsBUtton)="settingsButtonClicked()"></spl-navbar>
+
   <div class="grid-container">
-    <div class="grid-col">
+    <spl-grid-column [title]="'TOTAL ACCOUNTS'" [mainBodyText]="'0.00'" [subBodyText]="'0.00'">
+    </spl-grid-column>
 
+    <spl-grid-column [title]="'TOTAL DEC'" [mainBodyText]="viewModel.totalDec" [subBodyText]="viewModel.totalDecInNative">
+    </spl-grid-column>
+
+    <spl-grid-column [title]="'TOTAL SPS'" [mainBodyText]="viewModel.totalSps" [subBodyText]="viewModel.totalSpsInNative">
+    </spl-grid-column>
+
+    <spl-grid-column [title]="'TOTAL STAKED SPS'" [mainBodyText]="viewModel.totalStakedSps" [subBodyText]="viewModel.totalStakedSpsInNative">
+    </spl-grid-column>
+
+    <spl-grid-column [title]="'END OF SEASON'" [mainBodyText]="viewModel.endOfSeason">
+    </spl-grid-column>
+
+    <spl-grid-column [title]="'TOTAL ASSETS'" [mainBodyText]="viewModel.totalAssets">
+    </spl-grid-column>
+
+    <spl-grid-column [title]="'DEC RATE'" [mainBodyText]="viewModel.decRate">
+    </spl-grid-column>
+
+    <spl-grid-column [title]="'SPS RATE'" [mainBodyText]="viewModel.spsRate">
+    </spl-grid-column>
+  </div>
+
+  <div class="table-container">
+    <p class="table-accounts-text">ACCOUNTS</p>
+
+    <div class="table-buttons">
+      <button class="table-button refresh-button" (click)="refresh()">REFRESH</button>
+      <button class="table-button" (click)="addNewAccount()">ADD</button>
     </div>
 
-    <div class="grid-col">
+    <!--table>
+      <tr>
+        <th *ngFor="let tableColumnHeader of playersTableData?.tableColumnHeaders">
+          {{ tableColumnHeader }}
+        </th>
+      </tr>
 
-    </div>
-
-    <div class="grid-col">
-
-    </div>
-
-    <div class="grid-col">
-
-    </div>
-
-    <div class="grid-col">
-
-    </div>
-
-    <div class="grid-col">
-
-    </div>
-
-    <div class="grid-col">
-
-    </div>
-
-    <div class="grid-col">
-
-    </div>
-
+      <tr [ngClass]="{'placeholder-td' : isPlayersLoading}" *ngFor="let tableRow of playersTableData?.tableRows">
+        <td *ngFor="let tableColumnHeader of playersTableData?.tableColumnHeaders">
+          {{ tableRow[tableColumnHeader] }}
+        </td>
+      </tr>
+    </table> -->
   </div>
 </div>

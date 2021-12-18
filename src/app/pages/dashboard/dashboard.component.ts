@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  viewModel = new DashboardViewModel();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -19,4 +21,26 @@ export class DashboardComponent implements OnInit {
   settingsButtonClicked() {
     console.log("settings button clicked");
   }
+
+  refresh() {
+
+  }
+
+  addNewAccount() {
+
+  }
+}
+
+class DashboardViewModel {
+  totalAccounts?: string;
+  totalDec?: string;
+  totalDecInNative?: string;
+  totalSps?: string;
+  totalSpsInNative?: string;
+  totalStakedSps?: string;
+  totalStakedSpsInNative?: string;
+  endOfSeason?: string;
+  totalAssets?: string;
+  decRate?: string;
+  spsRate?: string;
 }

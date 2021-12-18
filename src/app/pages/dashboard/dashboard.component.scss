@@ -3,23 +3,60 @@
   width: 100vw;
   height: 100vh;
   display: flex;
+  flex-direction: column;
 }
 
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 
 .grid-container {
   height: 60vh;
-  width: 100%;
-  // background-color: blue;
-  margin-top: calc(var(--navbar-height) + 40px);
+  margin-top: calc(var(--navbar-height) + 30px);
+  margin-left: 50px;
+  margin-right: 50px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   flex-wrap: wrap;
   flex-direction: row;
 }
 
-.grid-col {
-  width: 20vw;
-  height: 170px;
-  margin: 8px;
+.table-container {
+  font-family: 'Quicksand','sans-serif';
+  color: white;
+  margin: 0px 50px;
+  padding: 24px;
   background-color: #232a46;
+  border-radius: 8px;
+}
+
+.table-accounts-text {
+  font-size: 24px;
+  margin: 0;
+  float: left;
+}
+
+.table-buttons {
+  float: right;
+  margin: 0;
+}
+
+.table-button {
+  font-family: 'Roboto', 'sans-serif';
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0px 4px;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 4px 8px;
+  background-color: #eb933a;
+}
+
+.refresh-button {
+  margin-right: 20px;
 }
