@@ -1,12 +1,14 @@
 <nav class="navbar">
   <div class="navbar-container">
     <div class="navbar-brand">
-      <img class="navbar-icon" src="assets/images/lc_logo.png" alt="lc_logo" width="30" height="30">
+      <img class="navbar-brand-icon" src="assets/images/lc_logo.png" alt="lc_logo">
       <div class="navbar-title">SPL TRACKER</div>
     </div>
 
     <div class="navbar-buttons">
-      <button (click)="donateButtonClicked()" class="navbar-button donate-button">Buy me a coffee</button>
+      <button (click)="donateButtonClicked()" class="navbar-button donate-button">Buy me a coffee
+        <img class="donate-button-icon" src="assets/images/coffee_logo.png">
+      </button>
       <button (click)="settingsButtonClicked()" class="navbar-button settings-button">SETTINGS</button>
     </div>
   </div>

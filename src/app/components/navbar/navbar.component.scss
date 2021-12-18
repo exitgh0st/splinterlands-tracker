@@ -13,7 +13,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 12px;
+  padding: 8px 48px;
   width: 100%;
 }
 
@@ -21,18 +21,19 @@
   display: flex;
 }
 
-.navbar-icon {
+.navbar-brand-icon {
   padding: 0px 4px;
+  width: 35px;
+  height: 35px;
 }
 
 .navbar-title {
   color: white;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 900;
   font-family: 'Quicksand', 'sans-serif';
   text-decoration: none;
-  padding: 0;
-  margin: 0;
+  margin-left: 5px;
   align-items: center;
   display: flex;
 }
@@ -42,8 +43,8 @@
 }
 
 .navbar-button {
-  font-family: 'Quicksand', 'sans-serif';
-  font-size: 18px;
+  font-family: 'Roboto', 'sans-serif';
+  font-size: 16px;
   font-weight: 600;
   margin: 0px 4px;
   text-align: center;
@@ -51,11 +52,17 @@
   vertical-align: middle;
   cursor: pointer;
   border-radius: 4px;
+  padding: 4px 8px;
 }
 
 .donate-button {
   background-color: aquamarine;
   border: aquamarine;
+  margin-right: 20px;
+}
+
+.donate-button-icon {
+  vertical-align: middle;
 }
 
 .settings-button {
