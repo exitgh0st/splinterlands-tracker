@@ -15,7 +15,8 @@ import { FormsModule } from '@angular/forms';
     DashboardComponent,
     ModalComponent,
     NavbarComponent,
-    GridColumnComponent
+    GridColumnComponent,
+    ModalContainerComponent
   ],
   imports: [
     BrowserModule,
