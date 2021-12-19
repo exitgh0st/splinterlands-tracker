@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { ModalIdsEnum } from 'src/app/contants/modal-ids-enum';
+import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +11,10 @@ export class DashboardComponent implements OnInit {
 
   viewModel = new DashboardViewModel();
 
-  constructor() { }
+  constructor(private viewContainerRef: ViewContainerRef,
+    private modalService: ModalService) {
+    this.modalService.setViewContainerRef(this.viewContainerRef);
+  }
 
   ngOnInit(): void {
   }
@@ -27,7 +32,8 @@ export class DashboardComponent implements OnInit {
   }
 
   addNewAccount() {
-
+    this.modalService.openModal(ModalIdsEnum.ADD_ACCOUNT_MODAL_ID);
+    // this.viewContainerRef.clear();
   }
 }
 
