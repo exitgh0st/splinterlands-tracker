@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ModalIdsEnum } from 'src/app/contants/modal-ids-enum';
+import { ModalIdsEnum } from 'src/app/enums/modal-ids-enum';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({

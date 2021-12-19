@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef, ViewRef } from '@angular/core';
 import { ModalComponent } from '../components/modal/modal.component';
 import { ModalClasses } from '../contants/modal-classes';
-import { ModalIdsEnum } from '../contants/modal-ids-enum';
+import { ModalIdsEnum } from '../enums/modal-ids-enum';
 
 @Injectable({
   providedIn: 'root'
