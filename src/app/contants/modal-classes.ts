@@ -4,4 +4,5 @@ import { ModalIdsEnum } from "./modal-ids-enum";
 
 export const ModalClasses = {
   [ModalIdsEnum.MODAL_DEFAULT_ID] : ModalComponent,
+  [ModalIdsEnum.ADD_ACCOUNT_MODAL_ID]: AddAccountModalComponent
 };

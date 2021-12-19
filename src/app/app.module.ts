@@ -8,6 +8,8 @@ import { ModalComponent } from './components/modal/modal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { GridColumnComponent } from './components/grid-column/grid-column.component';
 import { FormsModule } from '@angular/forms';
+import { AddAccountModalComponent } from './components/add-account-modal/add-account-modal.component';
+import { ModalContainerComponent } from './components/modal-container/modal-container.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,7 @@ import { FormsModule } from '@angular/forms';
     ModalComponent,
     NavbarComponent,
     GridColumnComponent,
+    AddAccountModalComponent,
     ModalContainerComponent
   ],
   imports: [

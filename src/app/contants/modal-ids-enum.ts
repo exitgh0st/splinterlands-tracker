@@ -1,3 +1,4 @@
 export enum ModalIdsEnum {
   MODAL_DEFAULT_ID = "MODAL_DEFAULT",
+  ADD_ACCOUNT_MODAL_ID = "ADD_ACCOUNT_MODAL"
 }
