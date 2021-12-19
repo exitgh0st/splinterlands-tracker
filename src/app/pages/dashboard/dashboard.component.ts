@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ModalIdsEnum } from 'src/app/enums/modal-ids-enum';
+import { ModalIds } from 'src/app/enums/modal-ids';
 import { ModalService } from 'src/app/services/modal.service';
 
 @Component({
@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   donateButtonClicked() {
@@ -32,8 +33,7 @@ export class DashboardComponent implements OnInit {
   }
 
   addNewAccount() {
-    this.modalService.openModal(ModalIdsEnum.ADD_ACCOUNT_MODAL_ID);
-    // this.viewContainerRef.clear();
+    this.modalService.openModal(ModalIds.ADD_ACCOUNT_MODAL_ID);
   }
 }
 
