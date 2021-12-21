@@ -60,3 +60,24 @@
 .refresh-button {
   margin-right: 20px;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #eb933a;
+  table-layout: fixed;
+}
+
+th:nth-child(1) {
+  width: 30px;
+}
+
+th, td {
+  border-bottom: 1px solid #eb933a;
+  text-align: left;
+  padding: 8px;
+}
+
+tr {
+  background-color: #232a46;
+}

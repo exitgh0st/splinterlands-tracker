@@ -7,7 +7,7 @@
 
 
   <div class="grid-container">
-    <spl-grid-column [title]="'TOTAL ACCOUNTS'" [mainBodyText]="'0.00'" [subBodyText]="'0.00'">
+    <spl-grid-column [title]="'TOTAL ACCOUNTS'" [mainBodyText]="viewModel.totalAccounts">
     </spl-grid-column>
 
     <spl-grid-column [title]="'TOTAL DEC'" [mainBodyText]="viewModel.totalDec" [subBodyText]="viewModel.totalDecInNative">
@@ -19,7 +19,7 @@
     <spl-grid-column [title]="'TOTAL STAKED SPS'" [mainBodyText]="viewModel.totalStakedSps" [subBodyText]="viewModel.totalStakedSpsInNative">
     </spl-grid-column>
 
-    <spl-grid-column [title]="'END OF SEASON'" [mainBodyText]="viewModel.endOfSeason">
+    <spl-grid-column [title]="'END OF SEASON'" [mainBodyText]="viewModel.endOfSeason" [subBodyText]="'DAYS : HRS : MIN'">
     </spl-grid-column>
 
     <spl-grid-column [title]="'TOTAL ASSETS'" [mainBodyText]="viewModel.totalAssets">
@@ -40,18 +40,56 @@
       <button class="table-button" (click)="addNewAccount()">ADD</button>
     </div>
 
-    <!--table>
+    <table>
       <tr>
-        <th *ngFor="let tableColumnHeader of playersTableData?.tableColumnHeaders">
-          {{ tableColumnHeader }}
-        </th>
+        <th>#</th>
+        <th>USERNAME</th>
+        <th>ECR (%)</th>
+        <th>WIN RATE (%)</th>
+        <th>RANK</th>
+        <th>RATING</th>
+        <th>POWER</th>
+        <th>DEC</th>
+        <th>SPS</th>
+        <th>STAKED SPS</th>
+        <th>CREDITS</th>
       </tr>
 
-      <tr [ngClass]="{'placeholder-td' : isPlayersLoading}" *ngFor="let tableRow of playersTableData?.tableRows">
-        <td *ngFor="let tableColumnHeader of playersTableData?.tableColumnHeaders">
-          {{ tableRow[tableColumnHeader] }}
+      <tr *ngFor="let playerTableData of viewModel.players">
+        <td>
+          {{ playerTableData.number }}
+        </td>
+        <td>
+          {{ playerTableData.username }}
+        </td>
+        <td>
+          {{ playerTableData.ecr }}
+        </td>
+        <td>
+          {{ playerTableData.winRate }}
+        </td>
+        <td>
+          {{ playerTableData.rank }}
+        </td>
+        <td>
+          {{ playerTableData.rating }}
+        </td>
+        <td>
+          {{ playerTableData.power }}
+        </td>
+        <td>
+          {{ playerTableData.dec }}
+        </td>
+        <td>
+          {{ playerTableData.sps}}
+        </td>
+        <td>
+          {{ playerTableData.stakedSps }}
+        </td>
+        <td>
+          {{ playerTableData.credits }}
         </td>
       </tr>
-    </table> -->
+    </table>
   </div>
 </div>
