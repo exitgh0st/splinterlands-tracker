@@ -3,7 +3,7 @@ export interface TokenDetails {
   data: {
       name: string;
       symbol: string;
-      price: number;
-      price_BNB: number;
+      price: string;
+      price_BNB: string;
   };
 }
