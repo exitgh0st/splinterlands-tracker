@@ -1,4 +1,5 @@
 export enum Currency {
   USD = "USD",
-  PHP = "PHP"
+  PHP = "PHP",
+  DEFAULT = "USD"
 }
