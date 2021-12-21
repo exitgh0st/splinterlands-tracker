@@ -1,7 +1,7 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef, ViewRef } from '@angular/core';
 import { ModalComponent } from '../components/modal/modal.component';
 import { ModalClasses } from '../contants/modal-classes';
-import { ModalIdsEnum } from '../enums/modal-ids-enum';
+import { ModalIds } from '../enums/modal-ids';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class ModalService {
     this.viewContainerRef = viewContainerRef;
   }
 
-  openModal(modalId: ModalIdsEnum) {
+  openModal(modalId: ModalIds) {
     if (!this.viewContainerRef) {
       return;
     }
