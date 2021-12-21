@@ -10,6 +10,7 @@ import { GridColumnComponent } from './components/grid-column/grid-column.compon
 import { FormsModule } from '@angular/forms';
 import { AddAccountModalComponent } from './components/add-account-modal/add-account-modal.component';
 import { ModalContainerComponent } from './components/modal-container/modal-container.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ModalContainerComponent } from './components/modal-container/modal-cont
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
