@@ -1,9 +1,23 @@
 <spl-modal-container>
-  <div class="container">
-    <h2>NEW ACCOUNT:</h2>
-    <p>(Enter your splinterlands username)</p>
-    <input [(ngModel)]="username" type="text" id="username-input" required />
+  <div class="modal-container">
+    <div class="container">
+      <button (click)="close()" class="close"></button>
+      <div class="header-div">
+        <p class="header-title">NEW ACCOUNT:</p>
+        <p class="header-subtitle">(Enter your splinterlands username)</p>
+      </div>
+      <input class="username-input" [(ngModel)]="username" type="text" id="username-input" required />
+      <button *ngIf="!isValidatingUsername" class="confirm-button" (click)="confirm()">CONFIRM</button>
 
-    <button (click)="close()" class="confirm-button">CONFIRM</button>
+      <div *ngIf="isValidatingUsername" class="dot-pulse-div" data-title=".dot-pulse" >
+        <div class="dot-pulse-stage">
+          <div class="dot-pulse"> </div>
+        </div>
+      </div>
+
+      <div *ngIf="playerAlreadyExistError" class="error">Player already exist on the list</div>
+      <div *ngIf="noUsernameError" class="error">Enter a username first</div>
+      <div *ngIf="invalidUsernameError" class="error">Please enter a valid username</div>
+    </div>
   </div>
 </spl-modal-container>
