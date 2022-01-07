@@ -1,6 +1,9 @@
 <div class="grid-col">
-  <p class="grid-col-text grid-col-title">{{ title }}</p>
-
+  <p class="grid-col-text grid-col-title">{{ title }}
+    <a *ngIf="icon" href="{{ icon.link }}" target="_blank">
+      <img src="{{ icon.directory }}" class="img-icon">
+    </a>
+  </p>
 
   <div *ngIf="!mainBodyText" class="dot-pulse-div" data-title=".dot-pulse" >
     <div class="dot-pulse-stage">

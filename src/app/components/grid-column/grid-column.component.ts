@@ -10,10 +10,15 @@ export class GridColumnComponent implements OnInit {
   @Input() title?: string;
   @Input() mainBodyText?: string;
   @Input() subBodyText?: string;
+  @Input() icon?: GridIcon;
 
   constructor() { }
 
   ngOnInit(): void {
   }
+}
 
+export interface GridIcon {
+  directory: string;
+  link: string;
 }
