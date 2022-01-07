@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { AddAccountModalComponent } from './components/add-account-modal/add-account-modal.component';
 import { ModalContainerComponent } from './components/modal-container/modal-container.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { HttpClientModule } from '@angular/common/http';
     NavbarComponent,
     GridColumnComponent,
     AddAccountModalComponent,
-    ModalContainerComponent
+    ModalContainerComponent,
+    SettingsModalComponent
   ],
   imports: [
     BrowserModule,
