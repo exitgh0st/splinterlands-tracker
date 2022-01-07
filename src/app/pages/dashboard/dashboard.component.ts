@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
+import { AddAccountModalComponent, AddAccountModalListener } from 'src/app/components/add-account-modal/add-account-modal.component';
 import { TokenDetails } from 'src/app/components/models/token-details';
 import { TokenAddresses } from 'src/app/contants/token-addresses';
 import { Currency } from 'src/app/enums/currency';
@@ -21,7 +22,7 @@ import { TimeUtil } from 'src/app/utils/time-util';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AddAccountModalListener {
   viewModel = new DashboardViewModel();
   currency: Currency;
 
@@ -34,6 +35,16 @@ export class DashboardComponent implements OnInit {
   players$ = new BehaviorSubject<Player[] | undefined>(undefined);
 
   players?: Player[];
+
+  gridIconForDecRate = {
+    directory: "assets/images/bar_chart_icon.png",
+    link: "https://poocoin.app/tokens/0xe9d7023f2132d55cbd4ee1f78273cb7a3e74f10a"
+  };
+
+  gridIconForSpsRate = {
+    directory: "assets/images/bar_chart_icon.png",
+    link: "https://poocoin.app/tokens/0x1633b7157e7638c4d6593436111bf125ee74703f"
+  };
 
   constructor(private viewContainerRef: ViewContainerRef,
     private modalService: ModalService,
@@ -244,6 +255,8 @@ export class DashboardComponent implements OnInit {
   }
 
   settingsButtonClicked() {
+    const settingsModal = this.modalService.openModal(ModalIds.SETTINGS_MODAL_ID);
+
     console.log("settings button clicked");
   }
 
@@ -280,7 +293,23 @@ export class DashboardComponent implements OnInit {
   }
 
   addNewAccount() {
-    this.modalService.openModal(ModalIds.ADD_ACCOUNT_MODAL_ID);
+    const addNewAccountModal = this.modalService.openModal(ModalIds.ADD_ACCOUNT_MODAL_ID);
+
+    if (!addNewAccountModal) {
+      return;
+    }
+
+    (addNewAccountModal as AddAccountModalComponent).setAddAccountModalListener(this);
+    this.tokenService.getTokenDetails('xdasd');
+  }
+
+  confirmButtonClicked(username: string): void {
+    this.refresh();
+  }
+
+  clearAccounts() {
+    this.playerService.clearPlayers();
+    this.refresh();
   }
 }
 

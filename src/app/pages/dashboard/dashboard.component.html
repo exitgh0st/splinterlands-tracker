@@ -1,10 +1,8 @@
 
 
 <div class="container">
-
   <spl-navbar class="" (pressedDonateButton)="donateButtonClicked()" (pressedSettingsBUtton)="settingsButtonClicked()">
   </spl-navbar>
-
 
   <div class="grid-container">
     <spl-grid-column [title]="'TOTAL ACCOUNTS'" [mainBodyText]="viewModel.totalAccounts">
@@ -25,22 +23,25 @@
     <spl-grid-column [title]="'TOTAL ASSETS'" [mainBodyText]="viewModel.totalAssets">
     </spl-grid-column>
 
-    <spl-grid-column [title]="'DEC RATE'" [mainBodyText]="viewModel.decRate">
+    <spl-grid-column [title]="'DEC RATE'" [mainBodyText]="viewModel.decRate" [icon]="gridIconForDecRate"
+    >
     </spl-grid-column>
 
-    <spl-grid-column [title]="'SPS RATE'" [mainBodyText]="viewModel.spsRate">
+    <spl-grid-column [title]="'SPS RATE'" [mainBodyText]="viewModel.spsRate" [icon]="gridIconForSpsRate">
     </spl-grid-column>
   </div>
 
   <div class="table-container">
-    <p class="table-accounts-text">ACCOUNTS</p>
-
-    <div class="table-buttons">
-      <button class="table-button refresh-button" (click)="refresh()">REFRESH</button>
-      <button class="table-button" (click)="addNewAccount()">ADD</button>
+    <div class="table-title-panel">
+      <p class="table-accounts-text">ACCOUNTS</p>
+      <div class="table-buttons">
+        <button class="table-button refresh-button" (click)="refresh()">REFRESH</button>
+        <button class="table-button" (click)="addNewAccount()">ADD</button>
+        <button class="table-button" (click)="clearAccounts()">CLEAR</button>
+      </div>
     </div>
 
-    <table>
+    <table class="table">
       <tr>
         <th>#</th>
         <th>USERNAME</th>
@@ -91,5 +92,9 @@
         </td>
       </tr>
     </table>
+  </div>
+
+  <div class="developer">
+    Developed by Labyrinth Co.
   </div>
 </div>
