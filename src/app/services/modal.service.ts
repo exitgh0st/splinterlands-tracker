@@ -31,6 +31,8 @@ export class ModalService {
 
     modalComponent.setIndex(this.viewContainerRef.indexOf(componentRef.hostView));
     modalComponent.open();
+
+    return modalComponent;
   }
 
   closeModal(modalIndex?: number) {
