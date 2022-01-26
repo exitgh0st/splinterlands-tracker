@@ -10,8 +10,10 @@ import { GridColumnComponent } from './components/grid-column/grid-column.compon
 import { FormsModule } from '@angular/forms';
 import { AddAccountModalComponent } from './components/add-account-modal/add-account-modal.component';
 import { ModalContainerComponent } from './components/modal-container/modal-container.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
+import { HttpInterceptorService } from './http-interceptor.service';
+import { ErrorModalComponent } from './components/error-modal/error-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { SettingsModalComponent } from './components/settings-modal/settings-mod
     GridColumnComponent,
     AddAccountModalComponent,
     ModalContainerComponent,
-    SettingsModalComponent
+    SettingsModalComponent,
+    ErrorModalComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,13 @@ import { SettingsModalComponent } from './components/settings-modal/settings-mod
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
