@@ -1,0 +1,55 @@
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 250px;
+  background-color: #eb933a;
+  align-items: center;
+  border-radius: 8px;
+  transition: all 5s ease-in-out;
+}
+
+.close-button {
+  position: absolute;
+  color: black;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: 0px;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 24px;
+  font-family: 'Roboto','sans-serif';
+}
+
+
+.error-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 180px;
+}
+
+.error-message {
+  font-family: 'Roboto', 'sans-serif';
+  font-size: 20px;
+}
+
+.refresh-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.refresh-button {
+  background-color: #14192f;
+  border: 0px;
+  border-radius: 4px;
+  color: white;
+  font-family: 'Roboto','sans-serif';
+  width: 130px;
+  font-size: 20px;
+  cursor: pointer;
+}

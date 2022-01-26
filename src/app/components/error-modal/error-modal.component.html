@@ -1,0 +1,18 @@
+<spl-modal-container>
+  <div class="modal-container">
+    <button class="close-button" (click)="close()">x</button>
+
+    <div class="error-message-container">
+      <p class="error-message">
+        {{ errorMessage }}
+      </p>
+    </div>
+
+    <div class="refresh-button-container">
+      <button class="refresh-button" (click)="refresh()">
+        REFRESH
+      </button>
+    </div>
+
+  </div>
+</spl-modal-container>
