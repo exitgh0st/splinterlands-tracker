@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageKeys } from '../contants/local-storage-keys';
+import { LocalStorageKeys } from '../constants/local-storage-keys';
 import { Currency } from '../enums/currency';
 
 @Injectable({

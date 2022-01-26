@@ -1,6 +1,6 @@
 import { ComponentFactoryResolver, Injectable, ViewContainerRef, ViewRef } from '@angular/core';
 import { ModalComponent } from '../components/modal/modal.component';
-import { ModalClasses } from '../contants/modal-classes';
+import { ModalClasses } from '../constants/modal-classes';
 import { ModalIds } from '../enums/modal-ids';
 
 @Injectable({
