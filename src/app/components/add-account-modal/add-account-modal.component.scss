@@ -72,15 +72,17 @@
   height: 30px;
 }
 
-.close {
-  background: url(/assets/images/close_icon.png);
-  background-size: 100%;
+.close-button {
   position: absolute;
-  top: 10px;
-  right:10px;
-  width: 20px;
-  height: 20px;
+  color: black;
+  top: 8px;
+  right: 8px;
+  background: none;
   border: 0px;
+  font-weight: 800;
+  cursor: pointer;
+  font-size: 20px;
+  font-family: 'Roboto','sans-serif';
 }
 
 .error {
