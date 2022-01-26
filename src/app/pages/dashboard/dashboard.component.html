@@ -43,52 +43,14 @@
 
     <table class="table">
       <tr>
-        <th>#</th>
-        <th>USERNAME</th>
-        <th>ECR (%)</th>
-        <th>WIN RATE (%)</th>
-        <th>RANK</th>
-        <th>RATING</th>
-        <th>POWER</th>
-        <th>DEC</th>
-        <th>SPS</th>
-        <th>STAKED SPS</th>
-        <th>CREDITS</th>
+        <th *ngFor="let playerTableDataHeader of playerTableDataHeaders">
+          {{ playerTableDataHeader }}
+        </th>
       </tr>
 
       <tr *ngFor="let playerTableData of viewModel.players">
-        <td>
-          {{ playerTableData.number }}
-        </td>
-        <td>
-          {{ playerTableData.username }}
-        </td>
-        <td>
-          {{ playerTableData.ecr }}
-        </td>
-        <td>
-          {{ playerTableData.winRate }}
-        </td>
-        <td>
-          {{ playerTableData.rank }}
-        </td>
-        <td>
-          {{ playerTableData.rating }}
-        </td>
-        <td>
-          {{ playerTableData.power }}
-        </td>
-        <td>
-          {{ playerTableData.dec }}
-        </td>
-        <td>
-          {{ playerTableData.sps}}
-        </td>
-        <td>
-          {{ playerTableData.stakedSps }}
-        </td>
-        <td>
-          {{ playerTableData.credits }}
+        <td [style.color]="playerTableData[playerTableDataHeader].details?.color ? playerTableData[playerTableDataHeader].details!.color : null" *ngFor="let playerTableDataHeader of playerTableDataHeaders">
+          {{ playerTableData[playerTableDataHeader].value }}
         </td>
       </tr>
     </table>

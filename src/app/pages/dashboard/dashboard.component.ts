@@ -2,17 +2,21 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { AddAccountModalComponent, AddAccountModalListener } from 'src/app/components/add-account-modal/add-account-modal.component';
 import { TokenDetails } from 'src/app/components/models/token-details';
-import { TokenAddresses } from 'src/app/contants/token-addresses';
+import { SettingsModalComponent, SettingsModalListener } from 'src/app/components/settings-modal/settings-modal.component';
+import { currencyDecimal } from 'src/app/constants/currency-decimals';
+import { TokenAddresses } from 'src/app/constants/token-addresses';
 import { Currency } from 'src/app/enums/currency';
 import { ModalIds } from 'src/app/enums/modal-ids';
 import { ExchangeRateDetails } from 'src/app/interfaces/exchange-rate-details';
 import { PlayerData } from 'src/app/interfaces/player-data';
+import { PlayerTableData } from 'src/app/interfaces/player-table-data';
 import { SplinterlandsSettings } from 'src/app/interfaces/splinterlands-settings';
 import { Player } from 'src/app/models/player';
 import { CurrencyService } from 'src/app/services/currency.service';
 import { ExchangeRateService } from 'src/app/services/exchange-rate.service';
 import { ModalService } from 'src/app/services/modal.service';
 import { PlayerService } from 'src/app/services/player.service';
+import { SettingsService } from 'src/app/services/settings.service';
 import { SplinterlandsService } from 'src/app/services/splinterlands.service';
 import { TokenService } from 'src/app/services/token.service';
 import { TimeUtil } from 'src/app/utils/time-util';
@@ -22,7 +26,7 @@ import { TimeUtil } from 'src/app/utils/time-util';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit, AddAccountModalListener {
+export class DashboardComponent implements OnInit, AddAccountModalListener, SettingsModalListener {
   viewModel = new DashboardViewModel();
   currency: Currency;
 
@@ -46,15 +50,19 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
     link: "https://poocoin.app/tokens/0x1633b7157e7638c4d6593436111bf125ee74703f"
   };
 
+  playerTableDataHeaders: string[];
+
   constructor(private viewContainerRef: ViewContainerRef,
     private modalService: ModalService,
     private currencyService: CurrencyService,
     private splinterlandsService: SplinterlandsService,
     private exchangeRateService: ExchangeRateService,
     private tokenService: TokenService,
-    private playerService: PlayerService) {
+    private playerService: PlayerService,
+    private settingsService: SettingsService) {
     this.modalService.setViewContainerRef(this.viewContainerRef);
-    this.currency = this.currencyService.getNativeCurrency();
+    this.currency = this.settingsService.getCurrency();
+    this.playerTableDataHeaders = this.settingsService.getPlayerTableDataHeaders();
   }
 
   ngOnInit(): void {
@@ -75,30 +83,6 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
       const seasonEndDHM = TimeUtil.convertMillisecondsToDHM(msRemainingBeforeSeasonEnds);
 
       this.viewModel.endOfSeason = seasonEndDHM.days + " : " + seasonEndDHM.hours + " : " + seasonEndDHM.minutes;
-    });
-
-    this.decTokenDetails$.subscribe(decTokenDetails => {
-      if (!decTokenDetails) {
-        return;
-      }
-
-      const decValue = parseFloat(decTokenDetails.data.price);
-
-      if (this.currency === Currency.DEFAULT) {
-        this.viewModel.decRate = this.currency + " " + decValue.toFixed(4);
-      }
-    });
-
-    this.spsTokenDetails$.subscribe(spsTokenDetails => {
-      if (!spsTokenDetails) {
-        return;
-      }
-
-      const spsValue = parseFloat(spsTokenDetails.data.price);
-
-      if (this.currency === Currency.DEFAULT) {
-        this.viewModel.spsRate = this.currency + " " + spsValue.toFixed(4);
-      }
     });
 
     this.playersData$.subscribe(playersData => {
@@ -129,29 +113,27 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
       this.players$.next(this.players);
     });
 
-    if (this.currency !== Currency.DEFAULT) {
-      combineLatest([this.usdExchangeRateDetails$, this.decTokenDetails$]).subscribe(results => {
-        const usdExchangeRateDetails = results[0];
-        const decTokenDetails = results[1];
+    combineLatest([this.usdExchangeRateDetails$, this.decTokenDetails$]).subscribe(results => {
+      const usdExchangeRateDetails = results[0];
+      const decTokenDetails = results[1];
 
-        if (!usdExchangeRateDetails || !decTokenDetails) {
-          return;
-        }
+      if (!usdExchangeRateDetails || !decTokenDetails) {
+        return;
+      }
 
-        this.viewModel.decRate = this.currency + " " + (parseFloat(decTokenDetails.data.price) * usdExchangeRateDetails.rates[this.currency]).toFixed(2);
-      });
+      this.viewModel.decRate = this.currency + " " + (parseFloat(decTokenDetails.data.price) * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
+    });
 
-      combineLatest([this.usdExchangeRateDetails$, this.spsTokenDetails$]).subscribe(results => {
-        const usdExchangeRateDetails = results[0];
-        const spsTokenDetails = results[1];
+    combineLatest([this.usdExchangeRateDetails$, this.spsTokenDetails$]).subscribe(results => {
+      const usdExchangeRateDetails = results[0];
+      const spsTokenDetails = results[1];
 
-        if (!usdExchangeRateDetails || !spsTokenDetails) {
-          return;
-        }
+      if (!usdExchangeRateDetails || !spsTokenDetails) {
+        return;
+      }
 
-        this.viewModel.spsRate = this.currency + " " + (parseFloat(spsTokenDetails.data.price) * usdExchangeRateDetails.rates[this.currency]).toFixed(2);
-      });
-    }
+      this.viewModel.spsRate = this.currency + " " + (parseFloat(spsTokenDetails.data.price) * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
+    });
 
     combineLatest([this.usdExchangeRateDetails$, this.decTokenDetails$, this.spsTokenDetails$, this.players$]).subscribe(results => {
       const usdExchangeRateDetails = results[0];
@@ -186,9 +168,9 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
         spsValue *= usdExchangeRateToNativeCurrency;
       }
 
-      const totalDecInNative = parseFloat((totalDec * decValue).toFixed(2));
-      const totalSpsInNative = parseFloat((totalSps * spsValue).toFixed(2));
-      const totalStakedSpsInNative = parseFloat((totalStakedSps * spsValue).toFixed(2));
+      const totalDecInNative = parseFloat((totalDec * decValue).toFixed(currencyDecimal[this.currency]));
+      const totalSpsInNative = parseFloat((totalSps * spsValue).toFixed(currencyDecimal[this.currency]));
+      const totalStakedSpsInNative = parseFloat((totalStakedSps * spsValue).toFixed(currencyDecimal[this.currency]));
 
       const totalAssetsInNative = (totalDecInNative + totalSpsInNative + totalStakedSpsInNative).toFixed(2);
 
@@ -234,19 +216,32 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
   }
 
   getPlayerTableData(player: Player, playerCtr: number): PlayerTableData {
-    console.log(player);
+    const aboveThresholdColor = this.settingsService.getAboveThresholdColor();
+    const belowThresholdColor = this.settingsService.getBelowThresholdColor();
+
+    let ecrColor;
+    let winRateColor;
+
+    if (player.captureRate){
+      ecrColor = player.captureRate >= this.settingsService.getEcrThreshold() ? aboveThresholdColor : belowThresholdColor;
+    }
+
+    if (player.winRate) {
+      winRateColor = player.winRate >= this.settingsService.getWinRateThreshold() ? aboveThresholdColor : belowThresholdColor;
+    }
+
     return {
-      number: playerCtr.toString(),
-      username: player.name !== undefined ? player.name : "",
-      ecr: player.captureRate !== undefined ? player.captureRate.toFixed(2) : "",
-      winRate: player.winRate !== undefined ? player.winRate.toFixed(2) : "",
-      rank: player.rank !== undefined ? player.rank : "",
-      rating: player.rating !== undefined ? player.rating.toString() : "",
-      power: player.collectionPower !== undefined ? player.collectionPower.toString() : "",
-      dec: player.dec !== undefined ? player.dec.toFixed(2) : "",
-      sps: player.sps !== undefined ? player.sps.toFixed(2) : "",
-      stakedSps: player.stakedSps !== undefined ? player.stakedSps.toFixed(2) : "",
-      credits: player.credits !== undefined ? player.credits.toFixed(2) : ""
+      "#": {value: (playerCtr + 1).toString() },
+      "USERNAME": {value: player.name !== undefined ? player.name : ""},
+      "ECR (%)": {value: player.captureRate !== undefined ? player.captureRate.toFixed(2) : "", details: {color: ecrColor}},
+      "WIN RATE (%)": {value: player.winRate !== undefined ? player.winRate.toFixed(2) : "",  details: {color: winRateColor}},
+      "RANK": {value: player.rank !== undefined ? player.rank : ""},
+      "RATING": {value: player.rating !== undefined ? player.rating.toString() : ""},
+      "POWER": {value: player.collectionPower !== undefined ? player.collectionPower.toString() : ""},
+      "DEC": {value: player.dec !== undefined ? player.dec.toFixed(2) : ""},
+      "SPS": {value: player.sps !== undefined ? player.sps.toFixed(2) : ""},
+      "STAKED SPS": {value: player.stakedSps !== undefined ? player.stakedSps.toFixed(2) : ""},
+      "CREDITS": {value: player.credits !== undefined ? player.credits.toFixed(2) : ""}
     };
   }
 
@@ -256,8 +251,7 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
 
   settingsButtonClicked() {
     const settingsModal = this.modalService.openModal(ModalIds.SETTINGS_MODAL_ID);
-
-    console.log("settings button clicked");
+    (settingsModal as SettingsModalComponent).setSettingsModalListener(this);
   }
 
   refresh() {
@@ -269,6 +263,9 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
     this.players$.next(undefined);
 
     this.resetViewModel();
+
+    this.currency = this.settingsService.getCurrency();
+    this.playerTableDataHeaders = this.settingsService.getPlayerTableDataHeaders();
 
     this.fetchSplinterlandsSettings();
     this.fetchUsdExchangeRate();
@@ -311,6 +308,10 @@ export class DashboardComponent implements OnInit, AddAccountModalListener {
     this.playerService.clearPlayers();
     this.refresh();
   }
+
+  savedSettings(): void {
+    this.refresh();
+  }
 }
 
 class DashboardViewModel {
@@ -328,16 +329,3 @@ class DashboardViewModel {
   players?: PlayerTableData[];
 }
 
-interface PlayerTableData {
-  number: string;
-  username: string;
-  ecr: string;
-  winRate: string;
-  rank: string;
-  rating: string;
-  power: string;
-  dec: string;
-  sps: string;
-  stakedSps: string;
-  credits: string;
-}
