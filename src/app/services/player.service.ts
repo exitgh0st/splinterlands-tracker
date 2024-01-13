@@ -92,7 +92,7 @@ export class PlayerService {
     player.stakedSps = this.getPlayerBalance(playerBalances, SplinterlandsCurrency.STAKED_SPS);
     player.credits = this.getPlayerBalance(playerBalances, SplinterlandsCurrency.CREDITS);
 
-    player.rank = splinterlandsSettings.leagues[player.league ? player.league : 0].name;
+    player.rank = splinterlandsSettings.leagues.modern[player.league ? player.league : 0].name;
     const ecrRegenRate = splinterlandsSettings.dec.ecr_regen_rate;
 
     const lastBlock = splinterlandsSettings.last_block;

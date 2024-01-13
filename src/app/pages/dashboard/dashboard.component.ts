@@ -4,7 +4,7 @@ import { AddAccountModalComponent, AddAccountModalListener } from 'src/app/compo
 import { TokenDetails } from 'src/app/components/models/token-details';
 import { SettingsModalComponent, SettingsModalListener } from 'src/app/components/settings-modal/settings-modal.component';
 import { currencyDecimal } from 'src/app/constants/currency-decimals';
-import { TokenAddresses } from 'src/app/constants/token-addresses';
+import { TokenIds } from 'src/app/constants/token-ids';
 import { Currency } from 'src/app/enums/currency';
 import { ModalIds } from 'src/app/enums/modal-ids';
 import { ExchangeRateDetails } from 'src/app/interfaces/exchange-rate-details';
@@ -82,7 +82,7 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
       const msRemainingBeforeSeasonEnds = new Date(seasonEndMs).getTime() - new Date().getTime();
       const seasonEndDHM = TimeUtil.convertMillisecondsToDHM(msRemainingBeforeSeasonEnds);
 
-      this.viewModel.endOfSeason = seasonEndDHM.days + " : " + seasonEndDHM.hours + " : " + seasonEndDHM.minutes;
+      this.viewModel.endOfSeason = (seasonEndDHM.days < 10 ? "0": "") + seasonEndDHM.days + " : " + (seasonEndDHM.hours < 10 ? "0":"") + seasonEndDHM.hours + " : " + (seasonEndDHM.minutes < 10 ? "0":"") + seasonEndDHM.minutes;
     });
 
     this.playersData$.subscribe(playersData => {
@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
         return;
       }
 
-      this.viewModel.decRate = this.currency + " " + (parseFloat(decTokenDetails.data.price) * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
+      this.viewModel.decRate = this.currency + " " + (decTokenDetails.data[TokenIds.DEC_TOKEN_ID].quote.USD.price * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
     });
 
     combineLatest([this.usdExchangeRateDetails$, this.spsTokenDetails$]).subscribe(results => {
@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
         return;
       }
 
-      this.viewModel.spsRate = this.currency + " " + (parseFloat(spsTokenDetails.data.price) * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
+      this.viewModel.spsRate = this.currency + " " + (spsTokenDetails.data[TokenIds.SPS_TOKEN_ID].quote.USD.price * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
     });
 
     combineLatest([this.usdExchangeRateDetails$, this.decTokenDetails$, this.spsTokenDetails$, this.players$]).subscribe(results => {
@@ -159,8 +159,8 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
         totalStakedSps += player.stakedSps;
       }
 
-      let decValue = parseFloat(decTokenDetails.data.price);
-      let spsValue = parseFloat(spsTokenDetails.data.price);
+      let decValue = decTokenDetails.data[TokenIds.DEC_TOKEN_ID].quote.USD.price;
+      let spsValue = spsTokenDetails.data[TokenIds.SPS_TOKEN_ID].quote.USD.price;
 
       if (this.currency !== Currency.DEFAULT) {
         const usdExchangeRateToNativeCurrency = usdExchangeRateDetails.rates[this.currency];
@@ -198,13 +198,13 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
   }
 
   fetchDecTokenDetails() {
-    this.tokenService.getTokenDetails(TokenAddresses.DEC_TOKEN_ADDRESS).toPromise().then(tokenDetails => {
+    this.tokenService.getTokenDetails(TokenIds.DEC_TOKEN_ID).toPromise().then(tokenDetails => {
       this.decTokenDetails$.next(tokenDetails);
     });
   }
 
   fetchSpsTokenDetails() {
-    this.tokenService.getTokenDetails(TokenAddresses.SPS_TOKEN_ADDRESS).toPromise().then(tokenDetails => {
+    this.tokenService.getTokenDetails(TokenIds.SPS_TOKEN_ID).toPromise().then(tokenDetails => {
       this.spsTokenDetails$.next(tokenDetails);
     });
   }
@@ -297,7 +297,6 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
     }
 
     (addNewAccountModal as AddAccountModalComponent).setAddAccountModalListener(this);
-    this.tokenService.getTokenDetails('xdasd');
   }
 
   confirmButtonClicked(username: string): void {
