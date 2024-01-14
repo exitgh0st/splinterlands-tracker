@@ -121,7 +121,7 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
         return;
       }
 
-      this.viewModel.decRate = this.currency + " " + (decTokenDetails.data[TokenIds.DEC_TOKEN_ID].quote.USD.price * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
+      this.viewModel.decRate = this.currency + " " + (decTokenDetails.token_price * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
     });
 
     combineLatest([this.usdExchangeRateDetails$, this.spsTokenDetails$]).subscribe(results => {
@@ -132,7 +132,7 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
         return;
       }
 
-      this.viewModel.spsRate = this.currency + " " + (spsTokenDetails.data[TokenIds.SPS_TOKEN_ID].quote.USD.price * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
+      this.viewModel.spsRate = this.currency + " " + (spsTokenDetails.token_price * usdExchangeRateDetails.rates[this.currency]).toFixed(currencyDecimal[this.currency]);
     });
 
     combineLatest([this.usdExchangeRateDetails$, this.decTokenDetails$, this.spsTokenDetails$, this.players$]).subscribe(results => {
@@ -159,8 +159,8 @@ export class DashboardComponent implements OnInit, AddAccountModalListener, Sett
         totalStakedSps += player.stakedSps;
       }
 
-      let decValue = decTokenDetails.data[TokenIds.DEC_TOKEN_ID].quote.USD.price;
-      let spsValue = spsTokenDetails.data[TokenIds.SPS_TOKEN_ID].quote.USD.price;
+      let decValue = decTokenDetails.token_price;
+      let spsValue = spsTokenDetails.token_price;
 
       if (this.currency !== Currency.DEFAULT) {
         const usdExchangeRateToNativeCurrency = usdExchangeRateDetails.rates[this.currency];
