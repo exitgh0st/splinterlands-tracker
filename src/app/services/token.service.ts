@@ -14,6 +14,6 @@ export class TokenService {
   constructor(private http: HttpClient) { }
 
   getTokenDetails(tokenId: number) {
-    return this.http.get<TokenDetails>(`${environment.coinMarketCapApiUrl}`, {params: {"id": tokenId}});
+    return this.http.get<TokenDetails>(`${environment.apiUrl}/token_price`, {params: {"id": tokenId}});
   }
 }

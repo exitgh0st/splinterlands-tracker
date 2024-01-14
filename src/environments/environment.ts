@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  coinMarketCapApiUrl: "http://localhost:5000/api/token_price"
+  apiUrl: "http://localhost:5000/api"
 };
 
 /*
